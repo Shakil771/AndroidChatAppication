@@ -1,7 +1,10 @@
+import 'package:chat_up/Custom%20UI/ReceiverMessageCard.dart';
+import 'package:chat_up/Custom%20UI/SenderMassageCard.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../Models/ChatModel.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class IndividualChatPage extends StatefulWidget {
   const IndividualChatPage({super.key, required this.chatModel});
@@ -16,14 +19,28 @@ class _IndividualChatPageState extends State<IndividualChatPage> {
   bool hasText = false;
   bool showEmojiPicker = false; // Track emoji picker visibility
   FocusNode focusNode = FocusNode();
+  late IO.Socket  socket;
   @override
   void initState() {
     super.initState();
+    connect();
     _controller.addListener(() {
       setState(() {
         hasText = _controller.text.trim().isNotEmpty;
       });
     });
+  }
+
+  void connect(){
+    socket = IO.io("http://192.168.1.102:5002", <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false
+
+    });
+    socket.connect();
+    socket.onConnect((data)=> print("Connected"));
+    print(socket.connected);
+    socket.emit("/text","Hello World");
   }
 
   void toggleEmojiPicker() {
@@ -58,6 +75,7 @@ class _IndividualChatPageState extends State<IndividualChatPage> {
             hasText = _controller.text.trim().isNotEmpty;
           });
         },
+        
         onBackspacePressed: () {
           setState(() {
             if (_controller.text.isNotEmpty) {
@@ -236,7 +254,39 @@ class _IndividualChatPageState extends State<IndividualChatPage> {
         body: Column(
           children: [
             Expanded(
-              child: ListView(), // Placeholder for chat messages
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width-10,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage(),
+                    SenderMessage(),
+                    ReceiverMessage()
+                  ],
+                ),
+              ), // Placeholder for chat messages
             ),
 
             // Input Field Section

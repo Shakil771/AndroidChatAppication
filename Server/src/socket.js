@@ -5,6 +5,10 @@ const initializeSocket = (server) => {
 
   io.on('connection', (socket) => {
     console.log('A user connected');
+    console.log(socket.id, "has Joined")
+    socket.on("/text", (msg)=>{
+      console.log(msg)
+    })
 
     socket.on('offer', (data) => {
       socket.broadcast.emit('offer', data);
@@ -23,5 +27,6 @@ const initializeSocket = (server) => {
     });
   });
 };
+
 
 module.exports = initializeSocket;

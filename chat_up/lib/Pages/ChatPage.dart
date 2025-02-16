@@ -13,10 +13,10 @@ class Chatpage extends StatefulWidget{
 
 class _ChatpageState extends State<Chatpage> {
   List<ChatModel> chats = [
-    ChatModel(name: "Md Shakil Hossain", icon: "assets/Icons/person.svg", currentMessage: "Hello Friend. How are yow pp pppppppppppppppppppppppppppppp hhhvff gfghvgf", isGroup: false, time: "10:02"),
-    ChatModel(name: "Mst. Rekha Khatun", icon: "assets/Icons/person.svg", currentMessage: "Hello Shakil...", isGroup: false, time: "11:52"),
-    ChatModel(name: "ChatUp", icon: "assets/Icons/groups.svg", currentMessage: "Hi Everyone...", isGroup: true, time: "10:02"),
-    ChatModel(name: "Md. Raju Ahmed", icon: "assets/Icons/person.svg", currentMessage: "Hello Shakil...", isGroup: false, time: "11:52")
+    ChatModel(id: 1, name: "Md Shakil Hossain", icon: "assets/Icons/person.svg", currentMessage: "Hello Friend. How are yow pp pppppppppppppppppppppppppppppp hhhvff gfghvgf", isGroup: false, time: "10:02"),
+    ChatModel(id: 2, name: "Mst. Rekha Khatun", icon: "assets/Icons/person.svg", currentMessage: "Hello Shakil...", isGroup: false, time: "11:52"),
+    ChatModel(id:3, name: "ChatUp", icon: "assets/Icons/groups.svg", currentMessage: "Hi Everyone...", isGroup: true, time: "10:02"),
+    ChatModel(id:4, name: "Md. Raju Ahmed", icon: "assets/Icons/person.svg", currentMessage: "Hello Shakil...", isGroup: false, time: "11:52")
   ];
   @override
   Widget build(BuildContext context) {

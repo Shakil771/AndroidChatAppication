@@ -5,6 +5,7 @@ class ChatModel{
   late String currentMessage;
   late bool isGroup;
   late bool select;
-  ChatModel({required this.name, required this.icon, required this.currentMessage, required this.isGroup, required this.time, this.select=false});
+  late int id;
+  ChatModel({required this.name, required this.icon, required this.currentMessage, required this.isGroup, required this.time, this.select=false, required this.id});
 
 }
