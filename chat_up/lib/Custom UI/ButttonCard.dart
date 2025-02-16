@@ -1,11 +1,12 @@
+import 'package:chat_up/Screens/IndividualChatScreen.dart';
 import 'package:chat_up/Screens/NewGroupScreen.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCard extends StatelessWidget {
-  const ButtonCard({super.key, required this.name, required this.icon, required this.pageName});
+  const ButtonCard({super.key, required this.name, required this.icon, required NewGroup pageName,});
   final String name;
   final Widget icon;
-  final NewGroup pageName;
+  // final NewGroup pageName;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class ButtonCard extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => pageName));
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => IndividualChatPage(chatModel: chatModel)));
           },
           child: ListTile(
             leading: CircleAvatar(
@@ -21,7 +22,7 @@ class ButtonCard extends StatelessWidget {
               backgroundColor: Colors.green,
               child: icon, // icon should be a Widget
             ),
-            title: Text(name, style: TextStyle(fontSize: 14, color: Colors.white,),),
+            title: Text(name, style: TextStyle(fontSize: 14, color: Colors.black,),),
           ),
         ),
       ],

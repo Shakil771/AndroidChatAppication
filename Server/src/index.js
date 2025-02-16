@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 initializeSocket(server);
 
-server.listen(serverPort, async () => {
+server.listen(serverPort, "0.0.0.0", async () => {
   console.log(`Server is running at http://localhost:${serverPort}`);
-//   await connectDatabase();
+//   await connectDatabase(); 
 });
