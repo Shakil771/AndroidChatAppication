@@ -2,15 +2,14 @@ import 'package:chat_up/core/theme/CustomThemeExtension.dart';
 import 'package:chat_up/widgets/PrivacyAndTerms.dart';
 import 'package:flutter/material.dart';
 
+import '../routes/Routes.dart';
 import '../widgets/CustomElevatedButton.dart';
 import '../widgets/LanguageButton.dart';
 
-class WelcomePage extends StatefulWidget {
-  @override
-  State<WelcomePage> createState() => _WelcomePageState();
-}
-
-class _WelcomePageState extends State<WelcomePage> {
+class WelcomePage extends StatelessWidget {
+  navigateToLoginPage(context){
+    Navigator.of(context).pushNamedAndRemoveUntil(Routes.login, (route)=>false);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +41,7 @@ class _WelcomePageState extends State<WelcomePage> {
               const PrivacyAndTerms(),
               CustomElevatedButton(
                 text: "AGREE AND CONTINUE",
-                onPressed: () {},
+                onPressed: ()=> navigateToLoginPage(context),
               ),
               SizedBox(
                 height: 50,
