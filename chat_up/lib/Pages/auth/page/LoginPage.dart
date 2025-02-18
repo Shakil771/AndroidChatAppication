@@ -1,3 +1,4 @@
+import 'package:chat_up/Pages/auth/AuthController.dart';
 import 'package:chat_up/Pages/auth/widgets/CustomTextField.dart';
 import 'package:chat_up/core/helper/ShowAlertDialog.dart';
 import 'package:chat_up/core/theme/Colors.dart';
@@ -6,15 +7,16 @@ import 'package:chat_up/widgets/CustomElevatedButton.dart';
 import 'package:chat_up/widgets/CustomIconButton.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   late final TextEditingController countryNameController;
   late final TextEditingController countryCodeController;
   late final TextEditingController phoneNumberController;
@@ -57,32 +59,33 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   sendCodeToPhone() {
-    final phone = phoneNumberController.text;
-    final name = countryNameController.text;
+    final phoneNumber = phoneNumberController.text;
+    final countryName = countryNameController.text;
+    final countryCode = countryCodeController.text;
 
-    if (phone.isEmpty) {
+    if (phoneNumber.isEmpty) {
+      return showAlertDialog(
+        context: context,
+        message: "Please enter your phoneNumber number",
+      );
+    } else if (phoneNumber.length < 8) {
       return showAlertDialog(
         context: context,
         message:
-        "Please enter your phone number",
+            "The phoneNumber number you entered is too short for the country: $countryName. \n\n\nInclude your area code if you haven't ",
       );
-    }
-    else if (phone.length < 13) {
+    } else if (phoneNumber.length > 15) {
       return showAlertDialog(
         context: context,
         message:
-            "The phone number you entered is too short for the country: $name. \n\n\nInclude your area code if you haven't ",
+            "The phoneNumber number you entered is too long for the country: $countryName.",
       );
     }
-    else if (phone.length > 13) {
-      return showAlertDialog(
-        context: context,
-        message:
-        "The phone number you entered is too long for the country: $name.",
-      );
-    }
+    //request a verification code
+    ref
+        .read(authControllerProvider)
+        .sendSmsCode(context: context, phoneNumber: phoneNumber);
   }
-
 
   @override
   void initState() {
