@@ -13,10 +13,23 @@ ThemeData darkTheme() {
       ),
       extensions: [CustomThemeExtension.darkMode],
       appBarTheme: AppBarTheme(
-          titleTextStyle: TextStyle(fontSize: 20),
-          systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.light)),
+        backgroundColor: Coloors.greyBackground,
+        titleTextStyle: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.w600, color: Coloors.greyDark),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light),
+      ),
+
+      iconTheme: IconThemeData(
+        color: Coloors.greyDark,
+      ),
+      tabBarTheme: TabBarThemeData(
+        indicator: UnderlineTabIndicator(
+            borderSide: BorderSide(color: Coloors.greenDark, width: 2)),
+        unselectedLabelColor: Coloors.greyDark,
+        labelColor: Coloors.greyDark
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
             backgroundColor: Coloors.greenDark,

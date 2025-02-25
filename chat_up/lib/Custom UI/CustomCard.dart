@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../Models/ChatModel.dart';
-import '../Screens/IndividualChatScreen.dart';
+import '../Screens/ChatScreen.dart';
+import '../core/model/user_model.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({super.key, required this.chatModel});
   final ChatModel chatModel;
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class CustomCard extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => IndividualChatPage(chatModel: chatModel)));
+
           },
           onLongPress: () {
             print("Long Pressed");

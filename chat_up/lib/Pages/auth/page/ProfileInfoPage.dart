@@ -1,29 +1,53 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:chat_up/Pages/auth/AuthController.dart';
 import 'package:chat_up/Pages/auth/page/ImagePickerPage.dart';
+import 'package:chat_up/core/helper/ShowAlertDialog.dart';
 import 'package:chat_up/core/theme/Colors.dart';
 import 'package:chat_up/core/theme/CustomThemeExtension.dart';
 import 'package:chat_up/widgets/CustomElevatedButton.dart';
 import 'package:chat_up/widgets/CustomIconButton.dart';
 import 'package:chat_up/widgets/short_h_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../widgets/CustomTextField.dart';
 
-class ProfileInfoPage extends StatefulWidget {
-  const ProfileInfoPage({super.key});
+class ProfileInfoPage extends ConsumerStatefulWidget {
+  const ProfileInfoPage({
+    super.key,
+    this.profileImageUrl,
+  });
+  final String? profileImageUrl;
 
   @override
-  State<ProfileInfoPage> createState() => _ProfileInfoPageState();
+  ConsumerState<ProfileInfoPage> createState() => _ProfileInfoPageState();
 }
 
-class _ProfileInfoPageState extends State<ProfileInfoPage> {
+class _ProfileInfoPageState extends ConsumerState<ProfileInfoPage> {
   File? imageCamera;
   Uint8List? imageGallery;
+  late TextEditingController usernameController;
 
-  late TextEditingController nameController;
+  saveUserDataToFirebase() {
+    String userName = usernameController.text;
+    if (userName.isEmpty) {
+      showAlertDialog(context: context, message: "Please enter your username");
+    } else if (userName.length < 3 || userName.length > 25) {
+      showAlertDialog(
+          context: context,
+          message: "Username must be between 3 and 20 characters.");
+    }
+    ref.read(authControllerProvider).saveUserInfoToFirestore(
+          userName: userName,
+          // profileImage: imageCamera ?? imageGallery ?? widget.profileImageUrl ??'',
+          context: context,
+          mounted: mounted,
+        );
+  }
+
   imagePickerTyBottomSheet() {
     return showModalBottomSheet(
       context: context,
@@ -86,7 +110,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
     );
   }
 
-  picImageFromCamera()async{
+  picImageFromCamera() async {
     Navigator.of(context).pop();
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -94,10 +118,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
         imageCamera = File(image!.path);
         imageGallery = null;
       });
-    }
-    catch(e){
-
-    }
+    } catch (e) {}
   }
 
   imagePickerIcon(
@@ -128,13 +149,13 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
 
   @override
   void initState() {
-    nameController = TextEditingController();
+    usernameController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    nameController.dispose();
+    usernameController.dispose();
     super.dispose();
   }
 
@@ -177,12 +198,16 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                           color: imageCamera == null && imageGallery == null
                               ? Colors.transparent
                               : Colors.grey),
-                      image: imageCamera != null || imageGallery != null
+                      image: imageCamera != null ||
+                              imageGallery != null ||
+                              widget.profileImageUrl != null
                           ? DecorationImage(
                               fit: BoxFit.cover,
                               image: imageGallery != null
                                   ? MemoryImage(imageGallery!) as ImageProvider
-                                  : FileImage(imageCamera!),
+                                  : widget.profileImageUrl != null
+                                      ? NetworkImage(widget.profileImageUrl!)
+                                      : FileImage(imageCamera!) as ImageProvider,
                             )
                           : null),
                   child: Padding(
@@ -190,7 +215,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                     child: Icon(
                       Icons.add_a_photo_rounded,
                       size: 48,
-                      color: imageCamera == null && imageGallery == null
+                      color: imageCamera == null && imageGallery == null && widget.profileImageUrl==null
                           ? context.theme?.photoIconColor
                           : Colors.transparent,
                     ),
@@ -202,7 +227,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: CustomTextField(
-                  controller: nameController,
+                  controller: usernameController,
                   fontSize: 20,
                   hintText: "Enter your name",
                   autoFocus: true,
@@ -213,7 +238,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
         ),
       ),
       floatingActionButton: CustomElevatedButton(
-        onPressed: () {},
+        onPressed: saveUserDataToFirebase,
         text: "NEXT",
         buttonWidth: 90,
       ),

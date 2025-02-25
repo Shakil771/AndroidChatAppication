@@ -18,7 +18,7 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   late final TextEditingController countryNameController;
-  late final TextEditingController countryCodeController;
+  late final TextEditingController phoneCodeController;
   late final TextEditingController phoneNumberController;
 
   showCountryCodePicker() {
@@ -53,15 +53,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           )),
       onSelect: (country) {
         countryNameController.text = country.name;
-        countryCodeController.text = country.phoneCode;
+        phoneCodeController.text = country.phoneCode;
       },
     );
   }
 
   sendCodeToPhone() {
-    final phoneNumber = phoneNumberController.text;
+    final phoneNumber =phoneNumberController.text ;
     final countryName = countryNameController.text;
-    final countryCode = countryCodeController.text;
+    final phoneCode = phoneCodeController.text;
 
     if (phoneNumber.isEmpty) {
       return showAlertDialog(
@@ -84,13 +84,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     //request a verification code
     ref
         .read(authControllerProvider)
-        .sendSmsCode(context: context, phoneNumber: phoneNumber);
+        .sendSmsCode(context: context, phoneNumber: "+"+phoneCode+phoneNumber);
   }
 
   @override
   void initState() {
     countryNameController = TextEditingController(text: "Bangladesh");
-    countryCodeController = TextEditingController(text: "880");
+    phoneCodeController = TextEditingController(text: "880");
     phoneNumberController = TextEditingController();
     super.initState();
   }
@@ -98,7 +98,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   void dispose() {
     countryNameController.dispose();
-    countryCodeController.dispose();
+    phoneCodeController.dispose();
     phoneNumberController.dispose();
     super.dispose();
   }
@@ -163,7 +163,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 SizedBox(
                   width: 50,
                   child: CustomTextField(
-                    controller: countryCodeController,
+                    controller: phoneCodeController,
                     onTap: showCountryCodePicker,
                     readOnly: true,
                     prefixText: "+",

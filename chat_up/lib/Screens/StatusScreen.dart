@@ -1,4 +1,4 @@
-import 'package:chat_up/Screens/SelectContactScreen.dart';
+import 'package:chat_up/Screens/ContactScreen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -57,7 +57,7 @@ class _StatusScreenState extends State<StatusScreen> with SingleTickerProviderSt
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SelectContactScreen()), // Replace with actual contact page
+            MaterialPageRoute(builder: (context) => ContactPage()), // Replace with actual contact page
           );
         },
         child: const Icon(Icons.add_a_photo, color: Colors.white), // WhatsApp-style "+" icon

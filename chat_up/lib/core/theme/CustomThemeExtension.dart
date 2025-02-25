@@ -12,7 +12,7 @@ class CustomThemeExtension extends ThemeExtension<CustomThemeExtension> {
     photoIconBgColor: const Color(0xfb2b2f9),
     photoIconColor: const Color(0xff9daab3),
     circleImageColor: const Color(0xff25d366),
-    greyColor: Coloors.grayLight,
+    greyColor: Color(0xff151010),
     blueColor: Coloors.blueLight,
     langBtnBgColor: const Color(0xfff7f8fa),
     langBtnHighlightColor: const Color(0xffe8e8ed),

@@ -1,4 +1,4 @@
-import 'package:chat_up/Screens/IndividualChatScreen.dart';
+import 'package:chat_up/Screens/ChatScreen.dart';
 import 'package:chat_up/Screens/NewGroupScreen.dart';
 import 'package:flutter/material.dart';
 
