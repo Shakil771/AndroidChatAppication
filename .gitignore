@@ -1,0 +1,8 @@
+# Ignore Firebase Service Account Key
+Server/src/config/serviceAccountKey.json
+
+# Ignore Node Modules
+node_modules/
+
+# Ignore Environment Files
+.env
