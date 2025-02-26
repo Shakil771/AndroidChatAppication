@@ -1,5 +1,5 @@
 # Ignore Firebase Service Account Key
-Server/src/config/serviceAccountKey.json
+Server/src/config/chat-up-6441e-firebase-adminsdk-fbsvc-82a3cc8356.json
 
 # Ignore Node Modules
 node_modules/

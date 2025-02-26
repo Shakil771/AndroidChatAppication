@@ -68,5 +68,5 @@ node_modules/
 # dataconnect generated files
 .dataconnect
 
-Server/src/config/serviceAccountKey.json
+src/config/chat-up-6441e-firebase-adminsdk-fbsvc-82a3cc8356.json
 
