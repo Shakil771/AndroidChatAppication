@@ -3,7 +3,7 @@ const { realtimeDb } = require("../config/firebase");
 
 const userRouter = express.Router();
 
-router.post("/update-status-realtime", async (req, res) => {
+userRouter.post("/update-status-realtime", async (req, res) => {
   const { uid, active } = req.body;
 
   if (!uid || active === undefined) {
