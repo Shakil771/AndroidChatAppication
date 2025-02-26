@@ -1,5 +1,5 @@
 const express = require("express");
-const { realtimeDb } = require("../config/firebase"); // firebase.js থেকে ইমপোর্ট করা
+const { realtimeDb } = require("../config/firebase"); 
 
 const userRouter = express.Router();
 
